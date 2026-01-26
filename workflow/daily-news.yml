@@ -1,0 +1,48 @@
+name: Daily News to Telegram
+
+on:
+  schedule:
+    # 07:30 Singapore = 23:30 UTC (previous day)
+    # This runs at 23:30 UTC daily.
+    - cron: "30 23 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install feedparser requests
+
+      # Cache the seen file so you don't repost the same items every day
+      - name: Restore seen cache
+        uses: actions/cache@v4
+        with:
+          path: seen_hashes.txt
+          key: seen-${{ runner.os }}-${{ github.ref_name }}
+          restore-keys: |
+            seen-${{ runner.os }}-
+
+      - name: Run script
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          python news_to_telegram.py
+
+      - name: Save seen cache
+        uses: actions/cache@v4
+        with:
+          path: seen_hashes.txt
+          key: seen-${{ runner.os }}-${{ github.ref_name }}
