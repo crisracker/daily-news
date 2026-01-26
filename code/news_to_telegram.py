@@ -192,7 +192,7 @@ def main() -> None:
             seen.add(it["key"])
         blocks.append(format_region(region, items))
 
-    msg = f"<b>Daily News Digest</b>\n<i>{today} (UTC)</i>\n\n" + DIVIDER.join(blocks)
+    msg = f"<b>CT Daily News Digest</b>\n<i>{today} (UTC)</i>\n\n" + DIVIDER.join(blocks)
 
     # Send (chunk if needed)
     for part in chunk_message(msg):
