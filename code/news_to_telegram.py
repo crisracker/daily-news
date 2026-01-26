@@ -217,7 +217,7 @@ def main() -> None:
 
         blocks.append(format_region(region, region_items))
 
-    msg = f"<b>Daily News Digest</b>\n<i>{today} (UTC)</i>\n\n" + DIVIDER.join(blocks)
+    msg = f"<b>CT Daily News Digest</b>\n<i>{today} (UTC)</i>\n\n" + DIVIDER.join(blocks)
 
     for part in chunk_message(msg):
         telegram_send(part)
