@@ -1,3 +1,6 @@
+from datetime import datetime, timezone
+print("Cron triggered at UTC:", datetime.now(timezone.utc))
+
 #!/usr/bin/env python3
 import os
 import re
