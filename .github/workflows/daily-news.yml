@@ -2,8 +2,8 @@ name: Daily News to Telegram
 
 on:
   schedule:
-    # 09:00 Singapore (UTC+8) = 01:00 UTC, adjusted 2 hours earlier due to delays
-    - cron: "0 23 * * *"
+    # 08:30 Singapore (UTC+8) = 00:30 UTC, adjusted 2 hours earlier due to delays
+    - cron: "30 0 * * *"
   workflow_dispatch: {}
 
 jobs:
