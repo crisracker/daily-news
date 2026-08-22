@@ -9,6 +9,8 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write # Required to refresh the workflow schedule via API
 
     steps:
       - name: Checkout
@@ -47,6 +49,4 @@ jobs:
           key: seen-${{ runner.os }}-${{ github.ref_name }}
 
       - name: Keepalive Workflow
-        uses: gautamkrishnar/keepalive-workflow@v2
-        with:
-          use_api: "true"
+        uses: liskin/gh-workflow-keepalive@v1
