@@ -9,6 +9,8 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for keepalive to commit when repo is inactive
 
     steps:
       - name: Checkout
@@ -45,3 +47,6 @@ jobs:
         with:
           path: seen_hashes.txt
           key: seen-${{ runner.os }}-${{ github.ref_name }}
+
+      - name: Keepalive Workflow
+        uses: gautamkrishnar/keepalive-workflow@v2
